@@ -6,6 +6,8 @@ import axios from "axios";
 const posMap = {
   noun: "n.",
   verb: "v.",
+  adverb: "adv.",
+  adjective: "a.",
 };
 
 function WordPOSPage() {
@@ -32,7 +34,7 @@ function WordPOSPage() {
       {data?.data?.Items &&
         data.data.Items.map(({ pos, definitions, word }) => (
           <div>
-            <b>{word}</b>
+            <h2>{word}</h2>
             <br />
             <span>Part of speech: {pos}</span>
             <ul>{definitions && definitions.map((def) => <li>{def}</li>)}</ul>
