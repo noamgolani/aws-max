@@ -3,14 +3,23 @@ import { useQuery } from "react-query";
 
 import axios from "axios";
 
-function WordPage() {
-  const { word } = useParams();
-  const { isLoading, error, data } = useQuery([word], async () => {
-    return await axios.get(`https://aws-max.noamgolani.com/${word}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+const posMap = {
+  noun: "n.",
+  verb: "v.",
+};
+
+function WordPOSPage() {
+  const { word, pos } = useParams();
+  const posCorrect = posMap[pos] || "unknown pos";
+  const { isLoading, error, data } = useQuery([word, posCorrect], async () => {
+    return await axios.get(
+      `https://aws-max.noamgolani.com/${word}/${posCorrect}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   });
 
   return (
@@ -33,4 +42,4 @@ function WordPage() {
   );
 }
 
-export default WordPage;
+export default WordPOSPage;
