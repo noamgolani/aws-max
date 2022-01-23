@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import WordPage from "./pages/WordPage";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        {/* 
+      /:word - dynamic route - word is dynamic URL parameter, used to request backend api
+/:word/:partOfSpeech - dynamic route - word is dynamic URL parameter, used to request backend api
+/part-of-speech/:part - part is enum URL parameter, used to request backend api */}
+        <Routes>
+          <Route path="/:word" element={<WordPage />} />
+          {/* <Route path='/:word/:pos' element={} /> */}
+          {/* <Route path='/pos/:part' element={} /> */}
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
